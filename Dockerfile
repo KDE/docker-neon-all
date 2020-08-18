@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 MAINTAINER Jonathan Riddell <jr@jriddell.org>
 ADD public.key /
 ADD bash-prompt /
@@ -23,13 +23,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     echo 'neon:U6aMy0wojraho' | chpasswd -e && \
     echo 'neon ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     apt-get clean && \
-    # remove setcap from kinit which Docker seems not to like \
     cp /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit /root/ && \
     rm /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit && \
     cp /root/start_kdeinit /usr/lib/x86_64-linux-gnu/libexec/kf5/start_kdeinit && \
     # Wayland bits \
     mkdir /run/neon && \
     chown neon:neon /run/neon && \
+    chmod 7700 /run/neon && \
     export PS1=`cat /bash-prompt`
 ENV DISPLAY=:1
 ENV KDE_FULL_SESSION=true
