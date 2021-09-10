@@ -16,6 +16,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get dist-upgrade -y && \
     groupadd admin && \
     useradd -G admin,video -ms /bin/bash neon && \
+    apt-get remove --yes command-not-found && \
     # Refresh apt cache once more now that appstream is installed \
     rm -r /var/lib/apt/lists/* && \
     apt-get update && \
