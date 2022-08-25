@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 MAINTAINER Jonathan Riddell <jr@jriddell.org>
 ADD public.key /
 ADD bash-prompt /
@@ -19,6 +19,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     apt-get remove --yes command-not-found && \
     # Refresh apt cache once more now that appstream is installed \
     rm -r /var/lib/apt/lists/* && \
+    apt-get remove --yes command-not-found && \
     apt-get update && \
     # Blank password \
     echo 'neon:U6aMy0wojraho' | chpasswd -e && \
